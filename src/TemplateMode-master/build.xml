@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<project name="TemplateMode" default="run" basedir="./">
+    <description>Template Mode for extending Java Mode</description>
+	
+    <!-- name of your mode package (will be used as dir name) -->
+	<!-- note, this must be the same name as your mode subclass, AND the same name as this build project. -->
+    <property name="lib.name" value="TemplateMode" />
+	
+    <property name="description" value="This is a simple template for creating a Processing mode, extending the standard Java mode." />
+    <property name="paragraph-text" value="This version of the Template Mode is for Processing 3.0+" />
+
+    <property name="author-name" value="Author Name" />
+	<property name="author-website" value="https://authors-site.com" />
+	<property name="project-url" value="https://github.com/xxx" />
+		
+    <!-- version -->
+    <property name="release"	value="0.1" />
+
+    <!-- java(jdk) version -->
+    <property name="java.target.version" value="1.8" />
+	
+
+    <!-- location of processing jars (core.jar, pde.jar, ..) -->
+    <property name="processing.classes.core" location="${user.home}\\Downloads\\PROGRAM\\Processing\\processing-3.0.2\\core\\library" />
+    <property name="processing.classes.pde" location="${user.home}\\Downloads\\PROGRAM\\Processing\\processing-3.0.2\\lib" />
+    
+    <!-- folder to install modes in (probably a folder called "modes" inside your sketchbook folder) -->
+    <property name="processing.modes" location="${user.home}\\Documents\\Processing3\\modes"/>
+
+    <!-- path to your processing executable. -->
+    <property name="processing.executable" location="${user.home}\\Downloads\\PROGRAM\\Processing\\processing-3.0.2\\processing.exe"/>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - -->
+    <property name="src" 		value="src" />
+    <property name="build" 		value="build" />
+    <property name="bin" 		value="bin" />
+    <property name="dist" 		value="dist" />
+
+    <path id="library-classpath">
+        <fileset dir="${processing.classes.core}" >
+            <include name="*.jar" />
+        </fileset>
+        
+        <fileset dir="${processing.classes.pde}" >
+            <include name="*.jar" />
+        </fileset>
+
+        <fileset dir="lib" >
+            <include name="*.jar" />
+        </fileset>
+    </path>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - -
+        BUILD
+    - - - - - - - - - - - - - - - - - - - - - - - -->
+    <target name="build">
+        <propertyfile file="build.number" /> <!-- create the build.number file if it doesn't exist -->
+        <buildnumber file="build.number" />
+
+        <mkdir dir="${build}" />
+
+        <javac srcdir="${src}" destdir="${build}" source="${java.target.version}" includeantruntime="false">
+            <classpath>
+                <path refid="library-classpath"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - -
+        PACKAGE
+    - - - - - - - - - - - - - - - - - - - - - - - -->
+    <target name="package" depends="build">
+        <delete dir="${dist}" />
+        <property name="bundle" value="${dist}/${lib.name}"/>
+        <mkdir dir="${bundle}" />
+        <mkdir dir="${bundle}/mode" />
+
+        <jar jarfile="${bundle}/mode/${lib.name}.jar" basedir="build"/>
+		<!--zip destfile="${dist}/mode/${lib.name}.jar" excludes="**/*.MF">
+		    <zipgroupfileset dir="lib" includes="*.jar" />
+		</zip-->
+
+        <copy todir="${bundle}">
+            <fileset dir="resources/" />
+        </copy>
+
+        <copy todir="${bundle}/mode">
+            <fileset dir="lib/" />
+        </copy>
+
+        <replaceregexp file="${bundle}/mode.properties" flags="g"
+                               match="@@version@@" replace="${build.number}" />
+        <replaceregexp file="${bundle}/mode.properties" flags="g"
+                               match="@@pretty-version@@" replace="${release}" />
+    	<!--my setting-->
+
+        <replaceregexp file="${bundle}/mode.properties" flags="g"
+                               match="@@mode-name@@" replace="${lib.name}" />
+
+        <replaceregexp file="${bundle}/mode.properties" flags="g"
+                               match="@@sentence@@" replace="${description}" />
+
+        <replaceregexp file="${bundle}/mode.properties" flags="g"
+                               match="@@author@@" replace="${author-name}" />
+
+        <replaceregexp file="${bundle}/mode.properties" flags="g"
+                               match="@@web-site@@" replace="${author-website}" />
+
+        <replaceregexp file="${bundle}/mode.properties" flags="g"
+                               match="@@url@@" replace="${project-url}" />
+
+        <replaceregexp file="${bundle}/mode.properties" flags="g"
+                               match="@@paragraph@@" replace="${paragraph-text}" />
+    
+    	
+    </target>
+	
+    <!-- - - - - - - - - - - - - - - - - - - - - - -
+        INSTALL
+    - - - - - - - - - - - - - - - - - - - - - - - -->
+    <target name="install" depends="package" >
+        <delete dir="${processing.modes}/${lib.name}" />
+
+        <copy todir="${processing.modes}/">
+            <fileset dir="${dist}" />
+        </copy>
+    </target>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - -
+        CLEAN
+    - - - - - - - - - - - - - - - - - - - - - - - -->
+    <target name="clean">
+        <delete dir="${build}" />
+        <delete dir="${dist}" />
+    </target>
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - -
+        RUN
+    - - - - - - - - - - - - - - - - - - - - - - - -->
+    <target name="run" depends="install">
+        <exec executable="${processing.executable}" spawn="true" />
+    </target>
+    
+</project>

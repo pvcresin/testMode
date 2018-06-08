@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="src/TemplateMode-master/lib/core.jar"/>
+	<classpathentry kind="lib" path="src/TemplateMode-master/lib/pde.jar"/>
+	<classpathentry kind="lib" path="src/TemplateMode-master/lib/JavaMode.jar"/>
+	<classpathentry kind="lib" path="src/TemplateMode-master/lib/jdi.jar"/>
+	<classpathentry kind="lib" path="src/TemplateMode-master/lib/org.netbeans.swing.outline.jar"/>
+	<classpathentry kind="lib" path="src/TemplateMode-master/lib/antlr.jar"/>
+	<classpathentry kind="lib" path="src/TemplateMode-master/lib/classpath-explorer-1.0.jar"/>
+	<classpathentry kind="lib" path="src/TemplateMode-master/lib/org.eclipse.osgi.jar"/>
+	<classpathentry kind="lib" path="src/TemplateMode-master/lib/com.ibm.icu.jar"/>
+	<classpathentry kind="lib" path="src/TemplateMode-master/lib/jdimodel.jar"/>
+	<classpathentry kind="lib" path="src/TemplateMode-master/lib/jdtCompilerAdapter.jar"/>
+	<classpathentry kind="lib" path="src/TemplateMode-master/lib/jsoup-1.7.1.jar"/>
+	<classpathentry kind="lib" path="src/TemplateMode-master/lib/org.eclipse.core.contenttype.jar"/>
+	<classpathentry kind="lib" path="src/TemplateMode-master/lib/org.eclipse.core.jobs.jar"/>
+	<classpathentry kind="lib" path="src/TemplateMode-master/lib/org.eclipse.core.resources.jar"/>
+	<classpathentry kind="lib" path="src/TemplateMode-master/lib/org.eclipse.core.runtime.jar"/>
+	<classpathentry kind="lib" path="src/TemplateMode-master/lib/org.eclipse.equinox.common.jar"/>
+	<classpathentry kind="lib" path="src/TemplateMode-master/lib/org.eclipse.equinox.preferences.jar"/>
+	<classpathentry kind="lib" path="src/TemplateMode-master/lib/org.eclipse.jdt.core.jar"/>
+	<classpathentry kind="lib" path="src/TemplateMode-master/lib/org.eclipse.text.jar"/>
+	<classpathentry kind="con" path="org.jetbrains.kotlin.core.KOTLIN_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
